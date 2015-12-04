@@ -1,5 +1,3 @@
-import java.awt.Color;
-
 public enum Suit {
 
     CLUBS       (Color.BLACK),
@@ -7,11 +5,12 @@ public enum Suit {
     HEARTS      (Color.RED),
     SPADES      (Color.BLACK);
 
+    public enum Color { BLACK, RED }
     private final Color color;
 
     Suit(Color c) {
         this.color = c;
     }
 
-    Color color() { return color; }
+    public Color getColor() { return color; }
 }
