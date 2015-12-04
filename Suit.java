@@ -3,9 +3,14 @@ public enum Suit {
     CLUBS       (Color.BLACK),
     DIAMONDS    (Color.RED),
     HEARTS      (Color.RED),
-    SPADES      (Color.BLACK);
+    SPADES      (Color.BLACK),
+    JOKER       (Color.NONE);
 
-    public enum Color { BLACK, RED }
+    public enum Color { 
+        BLACK, 
+        RED,
+        NONE 
+    }
     private final Color color;
 
     Suit(Color c) {
