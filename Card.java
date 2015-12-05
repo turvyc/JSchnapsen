@@ -1,5 +1,5 @@
 /**
- * Represents a playing card.
+ * Represents a single playing card.
  */
 public class Card {
 
@@ -41,6 +41,15 @@ public class Card {
      */
     public Suit.Color getColor() {
         return suit.getColor();
+    }
+
+    /**
+     * Determines whether the card is a face card or "pip" card.
+     * @return true if the rank is Jack, Queen, or King; false otherwise
+     */
+    public boolean isFaceCard() {
+        return (rank == Rank.JACK || rank == Rank.QUEEN || rank == Rank.KING)
+            ? true : false;
     }
 
     /**

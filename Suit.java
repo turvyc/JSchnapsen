@@ -11,6 +11,7 @@ public enum Suit {
         RED,
         NONE 
     }
+
     private final Color color;
 
     Suit(Color c) {
