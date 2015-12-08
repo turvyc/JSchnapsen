@@ -8,6 +8,8 @@ public class Card {
 
     private boolean visible;
 
+    private String unicode;
+
     /**
      * Creates a new card.
      * @param r the rank of the card
@@ -17,10 +19,36 @@ public class Card {
         rank = r;
         suit = s;
         visible = false;
-    }
 
-    public int compareTo(Card other) {
-        return 0;
+        // Calculate the unicode
+        if (rank == Rank.LOW_JOKER)
+            unicode = "1F0CF";
+        else if (rank == Rank.HIGH_JOKER)
+            unicode = "1F0DF";
+        else {
+            unicode = "1F0";
+            switch (suit) {
+                case Suit.SPADES: unicode += "A"; break;
+                case Suit.HEARTS: unicode += "B"; break;
+                case Suit.DIAMONDS: unicode += "C"; break;
+                case Suit.CLUBS: unicode += "D"; break;
+            }
+            switch (rank) {
+                case Rank.ACE: unicode += 1; break;
+                case Rank.TWO: unicode += 2; break;
+                case Rank.THREE: unicode += 3; break;
+                case Rank.FOUR: unicode += 4; break;
+                case Rank.FIVE: unicode += 5; break;
+                case Rank.SIX: unicode += 6; break;
+                case Rank.SEVEN: unicode += 7; break;
+                case Rank.EIGHT: unicode += 8; break;
+                case Rank.NINE: unicode += 9; break;
+                case Rank.TEN: unicode += "A"; break;
+                case Rank.JACK: unicode += "B"; break;
+                case Rank.QUEEN: unicode += "D"; break;
+                case Rank.KING: unicode += "E"; break;
+            }
+        }
     }
 
     /**
