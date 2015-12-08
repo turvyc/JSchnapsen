@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 /**
  * Represents an abstract collection of cards.
@@ -53,5 +54,17 @@ public abstract class CardGrouping {
     protected void setVisible(boolean b) {
         for (Card c : cards)
             c.setVisible(b);
+    }
+
+    /**
+     * Sorts the cards by rank, without regard to suit.
+     */
+    protected void sortByRank() {
+    }
+
+    /**
+     * Sorts the cards by rank, grouped by suit.
+     */
+    protected void sortBySuit() {
     }
 }

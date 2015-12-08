@@ -9,9 +9,8 @@ public enum Suit {
     public enum Color { 
         BLACK, 
         RED,
-        NONE 
+        NONE
     }
-
     private final Color color;
 
     Suit(Color c) {

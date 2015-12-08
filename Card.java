@@ -19,6 +19,10 @@ public class Card {
         visible = false;
     }
 
+    public int compareTo(Card other) {
+        return 0;
+    }
+
     /**
      * Returns the rank of the card.
      * @return the rank

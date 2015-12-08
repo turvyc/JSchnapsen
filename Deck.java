@@ -1,5 +1,5 @@
 import java.util.Collections;
-import java.util.EnumSet;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -21,7 +21,7 @@ public class Deck extends CardGrouping {
      * Creates a stripped deck.
      * @param ranks the ranks to include
      */
-    public Deck(EnumSet<Rank> ranks) {
+    public Deck(ArrayList<Rank> ranks) {
         for (Suit s : Suit.values()) {
             for (Rank r : ranks)
                 add(new Card(r, s));
@@ -50,4 +50,14 @@ public class Deck extends CardGrouping {
     public Card draw() {
         return remove(0);
     }
+
+    /**
+     * Removes and returns a hand.
+     * @param size the number of cards to deal
+     * @return a Hand of cards
+     */
+    public Hand deal(int size) {
+    return new Hand();
+    }
+
 }
