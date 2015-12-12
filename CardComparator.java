@@ -42,11 +42,15 @@ public class CardComparator implements Comparator<Card> {
     /**
      * Constructs a custom comparator, as in for a stripped deck.
      */
-    public CardComparator(ArrayList<Rank> ranks, ArrayList<Suit> suits) {
+    public CardComparator(ArrayList<Rank> ranks) {
         sortBySuit = false;
         trump = null;
         rankOrder = ranks;
-        suitOrder = suits;
+
+        // Populate suit order using the order defined in the Enum
+        for (Suit s : Suit.values())
+            suitOrder.add(s);
+
     }
 
     /**
