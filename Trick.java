@@ -27,7 +27,8 @@ public class Trick extends CardGrouping {
      */
     public Card compare(CardComparator comparator) {
         comparator.setHighestSuit(suitLed);
-        super.sortBySuit(comparator);
+        super.setSortBySuit(true);
+        super.sort(comparator);
         return super.remove(0);
     }
 }

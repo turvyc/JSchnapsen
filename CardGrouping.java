@@ -8,11 +8,22 @@ public abstract class CardGrouping {
 
     protected ArrayList<Card> cards;
 
+    protected boolean sortBySuit;
+
     /**
      * The constructor only initializes the cards ArrayList.
      */
     public CardGrouping() {
         cards = new ArrayList<Card>();
+        sortBySuit = true;
+    }
+
+    /**
+     * Sets whether to sort by suit and rank or by rank alone.
+     * @param b true sorts by both suit and rank
+     */
+    public void setSortBySuit(boolean b) {
+        sortBySuit = b;
     }
 
     /**
@@ -64,18 +75,10 @@ public abstract class CardGrouping {
     }
 
     /**
-     * Sorts the cards by rank, without regard to suit.
+     * Sorts the cards.
      */
-    protected void sortByRank(CardComparator comparator) {
-        comparator.sortBySuit(false);
-        Collections.sort(cards, comparator);
-    }
-
-    /**
-     * Sorts the cards by rank, grouped by suit.
-     */
-    protected void sortBySuit(CardComparator comparator) {
-        comparator.sortBySuit(true);
+    protected void sort(CardComparator comparator) {
+        comparator.sortBySuit(this.sortBySuit);
         Collections.sort(cards, comparator);
     }
 }
