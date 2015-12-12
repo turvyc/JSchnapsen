@@ -53,12 +53,11 @@ public class Game extends Observable {
         this.p1 = p1;
         this.p2 = p2;
 
-        // Prepare the stripped deck and the CardGrouping objects
-        ArrayList<Rank> ranks = new ArrayList<Rank>(Arrays.asList(RANKS));
-        comparator = new CardComparator(ranks);
-        deck = new Deck(ranks);
-        trick = new Trick();
-        discard = new DiscardPile();
+        // Create the deck and CardGrouping objects
+        resetDeck();
+
+        // Create the comparator for the stripped deck
+        comparator = new CardComparator(new ArrayList<Rank>(Arrays.asList(RANKS)));
 
         // Assign point values to the cards
         rankValues.put(Rank.JACK, JACK_VALUE);
@@ -74,5 +73,23 @@ public class Game extends Observable {
         // Notify the observer
         setChanged();
         notifyObservers();
+    }
+
+    /**
+     * Prepares the next hand in a game.
+     */
+    public void nextHand() {
+        state = State.PREGAME;
+
+        resetDeck();
+    }
+
+    /**
+     * Creates/resets the deck and CardGrouping objects.
+     */
+    private void resetDeck() {
+        deck = new Deck(new ArrayList<Rank>(Arrays.asList(RANKS)));
+        trick = new Trick();
+        discard = new DiscardPile();
     }
 }

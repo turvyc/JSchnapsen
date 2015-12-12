@@ -15,6 +15,7 @@ public class Deck extends CardGrouping {
             for (Rank r : Rank.values())
                 super.add(new Card(r, s));
         }
+        shuffle();
     }
 
     /**
