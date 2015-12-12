@@ -28,25 +28,25 @@ public class Card {
         else {
             unicode = "1F0";
             switch (suit) {
-                case Suit.SPADES: unicode += "A"; break;
-                case Suit.HEARTS: unicode += "B"; break;
-                case Suit.DIAMONDS: unicode += "C"; break;
-                case Suit.CLUBS: unicode += "D"; break;
+                case SPADES: unicode += "A"; break;
+                case HEARTS: unicode += "B"; break;
+                case DIAMONDS: unicode += "C"; break;
+                case CLUBS: unicode += "D"; break;
             }
             switch (rank) {
-                case Rank.ACE: unicode += 1; break;
-                case Rank.TWO: unicode += 2; break;
-                case Rank.THREE: unicode += 3; break;
-                case Rank.FOUR: unicode += 4; break;
-                case Rank.FIVE: unicode += 5; break;
-                case Rank.SIX: unicode += 6; break;
-                case Rank.SEVEN: unicode += 7; break;
-                case Rank.EIGHT: unicode += 8; break;
-                case Rank.NINE: unicode += 9; break;
-                case Rank.TEN: unicode += "A"; break;
-                case Rank.JACK: unicode += "B"; break;
-                case Rank.QUEEN: unicode += "D"; break;
-                case Rank.KING: unicode += "E"; break;
+                case ACE: unicode += 1; break;
+                case TWO: unicode += 2; break;
+                case THREE: unicode += 3; break;
+                case FOUR: unicode += 4; break;
+                case FIVE: unicode += 5; break;
+                case SIX: unicode += 6; break;
+                case SEVEN: unicode += 7; break;
+                case EIGHT: unicode += 8; break;
+                case NINE: unicode += 9; break;
+                case TEN: unicode += "A"; break;
+                case JACK: unicode += "B"; break;
+                case QUEEN: unicode += "D"; break;
+                case KING: unicode += "E"; break;
             }
         }
     }

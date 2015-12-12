@@ -12,10 +12,10 @@ public class CardComparator implements Comparator<Card> {
     // Sets the trump suit, if necessary
     private Suit trump;
 
-    // The suit order. Index 0 is the lowest suit, nSuits the highest.
+    // The suit order, index 0 being the lowest suit.
     private ArrayList<Suit> suitOrder;
 
-    // The rank order. Index 0 is the lowest rank, nRanks the highest.
+    // The rank order, index 0 being the lowest rank.
     private ArrayList<Rank> rankOrder;
 
     /**
@@ -62,6 +62,7 @@ public class CardComparator implements Comparator<Card> {
         Rank bRank = b.getRank();
         Suit aSuit = a.getSuit();
         Suit bSuit = b.getSuit();
+
         assert (aRank != bRank && aSuit != bSuit);
 
         // Handle trump cards
@@ -109,7 +110,17 @@ public class CardComparator implements Comparator<Card> {
     }
 
     /**
-     * Sets a trump suit, or a suit that beats all others.
+     * Sets one suit to be the highest ranked suit by moving it to 
+     * the end of the ArrayList.
+     * @param s the suit to be promoted to the highest rank
+     */
+    public void setHighestSuit(Suit s) {
+        suitOrder.remove(s);
+        suitOrder.add(s);
+    }
+
+    /**
+     * Sets a trump suit, a suit that beats all others.
      * @param s the suit to be set as trump
      */
     public void setTrump(Suit s) {

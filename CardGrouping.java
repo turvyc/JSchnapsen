@@ -9,6 +9,13 @@ public abstract class CardGrouping {
     protected ArrayList<Card> cards;
 
     /**
+     * The constructor only initializes the cards ArrayList.
+     */
+    public CardGrouping() {
+        cards = new ArrayList<Card>();
+    }
+
+    /**
      * Adds a single, specified card to the grouping.
      * @param c the card to add
      */
@@ -59,12 +66,16 @@ public abstract class CardGrouping {
     /**
      * Sorts the cards by rank, without regard to suit.
      */
-    protected void sortByRank() {
+    protected void sortByRank(CardComparator comparator) {
+        comparator.sortBySuit(false);
+        Collections.sort(cards, comparator);
     }
 
     /**
      * Sorts the cards by rank, grouped by suit.
      */
-    protected void sortBySuit() {
+    protected void sortBySuit(CardComparator comparator) {
+        comparator.sortBySuit(true);
+        Collections.sort(cards, comparator);
     }
 }

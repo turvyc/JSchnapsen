@@ -13,7 +13,7 @@ public class Deck extends CardGrouping {
     public Deck() {
         for (Suit s : Suit.values()) {
             for (Rank r : Rank.values())
-                add(new Card(r, s));
+                super.add(new Card(r, s));
         }
     }
 
@@ -24,7 +24,7 @@ public class Deck extends CardGrouping {
     public Deck(ArrayList<Rank> ranks) {
         for (Suit s : Suit.values()) {
             for (Rank r : ranks)
-                add(new Card(r, s));
+                super.add(new Card(r, s));
         }
     }
 
@@ -32,8 +32,8 @@ public class Deck extends CardGrouping {
      * Adds two jokers to the deck.
      */
     public void addJokers() {
-        add(new Card(Rank.LOW_JOKER, Suit.JOKER));
-        add(new Card(Rank.HIGH_JOKER, Suit.JOKER));
+        super.add(new Card(Rank.LOW_JOKER, Suit.JOKER));
+        super.add(new Card(Rank.HIGH_JOKER, Suit.JOKER));
     }
 
     /**
@@ -48,7 +48,7 @@ public class Deck extends CardGrouping {
      * @return the top card of the deck
      */
     public Card draw() {
-        return remove(0);
+        return super.remove(0);
     }
 
     /**
@@ -57,7 +57,7 @@ public class Deck extends CardGrouping {
      * @return a Hand of cards
      */
     public Hand deal(int size) {
-    return new Hand();
+        return new Hand();
     }
 
 }
