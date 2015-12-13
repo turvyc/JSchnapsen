@@ -29,4 +29,8 @@ public abstract class Player {
     public int getHandPoints() {
         return handPoints;
     }
+
+    public void resetHandPoints() {
+        handPoints = 0;
+    }
 }

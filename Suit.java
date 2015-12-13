@@ -3,13 +3,11 @@ public enum Suit {
     CLUBS       (Color.BLACK, "\u2663"),
     DIAMONDS    (Color.RED, "\u2666"),
     HEARTS      (Color.RED, "\u2665"),
-    SPADES      (Color.BLACK, "\u2660"),
-    JOKER       (Color.NONE, "\u1F0CF");
+    SPADES      (Color.BLACK, "\u2660");
 
     public enum Color { 
         BLACK, 
         RED,
-        NONE
     }
     private final Color color;
     private String unicode;

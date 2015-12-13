@@ -12,6 +12,4 @@ public enum Rank {
     JACK,
     QUEEN,
     KING,
-    LOW_JOKER,
-    HIGH_JOKER
 }

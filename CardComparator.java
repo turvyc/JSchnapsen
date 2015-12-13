@@ -33,10 +33,6 @@ public class CardComparator implements Comparator<Card> {
         // Populate rank order using the order defined in the Enum
         for (Rank r : Rank.values())
             rankOrder.add(r);
-
-        // Remove the jokers
-        rankOrder.remove(Rank.LOW_JOKER);
-        rankOrder.remove(Rank.HIGH_JOKER);
     }
 
     /**

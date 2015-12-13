@@ -27,14 +27,7 @@ public class Deck extends CardGrouping {
             for (Rank r : ranks)
                 super.add(new Card(r, s));
         }
-    }
-
-    /**
-     * Adds two jokers to the deck.
-     */
-    public void addJokers() {
-        super.add(new Card(Rank.LOW_JOKER, Suit.JOKER));
-        super.add(new Card(Rank.HIGH_JOKER, Suit.JOKER));
+        shuffle();
     }
 
     /**
@@ -60,5 +53,4 @@ public class Deck extends CardGrouping {
     public Hand deal(int size) {
         return new Hand();
     }
-
 }

@@ -78,14 +78,24 @@ public class Game extends Observable {
     /**
      * Prepares the next hand in a game.
      */
-    public void nextHand() {
+    public void prepareNextHand() {
         state = State.PREGAME;
 
         resetDeck();
+
+        // Change the dealer
+        dealer = (dealer == p1) ? p2 : p1;
+
+        p1.resetHandPoints();
+        p2.resetHandPoints();
+
+        // Notify the observer
+        setChanged();
+        notifyObservers();
     }
 
     /**
-     * Creates/resets the deck and CardGrouping objects.
+     * Helper method to create/reset the deck and CardGrouping objects.
      */
     private void resetDeck() {
         deck = new Deck(new ArrayList<Rank>(Arrays.asList(RANKS)));

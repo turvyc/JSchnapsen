@@ -8,8 +8,6 @@ public class Card {
 
     private boolean visible;
 
-    private String unicode;
-
     /**
      * Creates a new card.
      * @param r the rank of the card
@@ -20,35 +18,6 @@ public class Card {
         suit = s;
         visible = false;
 
-        // Calculate the unicode
-        if (rank == Rank.LOW_JOKER)
-            unicode = "1F0CF";
-        else if (rank == Rank.HIGH_JOKER)
-            unicode = "1F0DF";
-        else {
-            unicode = "1F0";
-            switch (suit) {
-                case SPADES: unicode += "A"; break;
-                case HEARTS: unicode += "B"; break;
-                case DIAMONDS: unicode += "C"; break;
-                case CLUBS: unicode += "D"; break;
-            }
-            switch (rank) {
-                case ACE: unicode += 1; break;
-                case TWO: unicode += 2; break;
-                case THREE: unicode += 3; break;
-                case FOUR: unicode += 4; break;
-                case FIVE: unicode += 5; break;
-                case SIX: unicode += 6; break;
-                case SEVEN: unicode += 7; break;
-                case EIGHT: unicode += 8; break;
-                case NINE: unicode += 9; break;
-                case TEN: unicode += "A"; break;
-                case JACK: unicode += "B"; break;
-                case QUEEN: unicode += "D"; break;
-                case KING: unicode += "E"; break;
-            }
-        }
     }
 
     /**
@@ -98,5 +67,39 @@ public class Card {
      */
     public void setVisible(boolean b) {
         visible = b;
+    }
+
+    @Override
+    public String toString() {
+        String prefix = "\uD83C";
+        String suffix = "DC";
+        if (! visible)
+            suffix += "A0";
+        else {
+            switch (suit) {
+                case SPADES: suffix += "A"; break;
+                case HEARTS: suffix += "B"; break;
+                case DIAMONDS: suffix += "C"; break;
+                case CLUBS: suffix += "D"; break;
+            }
+            switch (rank) {
+                case ACE: suffix += "1"; break;
+                case TWO: suffix += "2"; break;
+                case THREE: suffix += "3"; break;
+                case FOUR: suffix += "4"; break;
+                case FIVE: suffix += "5"; break;
+                case SIX: suffix += "6"; break;
+                case SEVEN: suffix += "7"; break;
+                case EIGHT: suffix += "8"; break;
+                case NINE: suffix += "9"; break;
+                case TEN: suffix += "A"; break;
+                case JACK: suffix += "B"; break;
+                case QUEEN: suffix += "D"; break;
+                case KING: suffix += "E"; break;
+            }
+        }
+        String unicode = prefix + 
+            new String(Character.toChars(Integer.parseInt(suffix, 16)));
+        return unicode;
     }
 }

@@ -11,4 +11,12 @@ public class Hand extends CardGrouping {
         for (Card c : cards)
             c.setVisible(b);
     }
+
+    @Override
+    public String toString() {
+        String s = "Hand: ";
+        for (Card c : cards)
+            s += c.toString();
+        return s;
+    }
 }
