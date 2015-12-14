@@ -26,6 +26,9 @@ public class CardComparator implements Comparator<Card> {
         sortBySuit = false;
         trump = null;
         
+        suitOrder = new ArrayList<Suit>();
+        rankOrder = new ArrayList<Rank>();
+
         // Populate suit order using the order defined in the Enum
         for (Suit s : Suit.values())
             suitOrder.add(s);
@@ -77,7 +80,7 @@ public class CardComparator implements Comparator<Card> {
             return -1;
 
         // No trumps
-        if (sortBySuit) {
+        else if (sortBySuit) {
             if (aSuit == bSuit)
                 return rankOrder.indexOf(aRank) - rankOrder.indexOf(bRank);
             return suitOrder.indexOf(aSuit) - suitOrder.indexOf(bSuit);

@@ -98,8 +98,6 @@ public class Card {
                 case KING: suffix += "E"; break;
             }
         }
-        String unicode = prefix + 
-            new String(Character.toChars(Integer.parseInt(suffix, 16)));
-        return unicode;
+        return prefix + new String(Character.toChars(Integer.parseInt(suffix, 16)));
     }
 }

@@ -22,7 +22,7 @@ public abstract class CardGrouping {
      * Sets whether to sort by suit and rank or by rank alone.
      * @param b true sorts by both suit and rank
      */
-    public void setSortBySuit(boolean b) {
+    public void sortBySuit(boolean b) {
         sortBySuit = b;
     }
 

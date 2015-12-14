@@ -51,6 +51,9 @@ public class Deck extends CardGrouping {
      * @return a Hand of cards
      */
     public Hand deal(int size) {
-        return new Hand();
+        Hand h = new Hand();
+        for (int i = 0; i < size; i++)
+            h.add(draw());
+        return h;
     }
 }

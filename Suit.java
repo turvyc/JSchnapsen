@@ -7,7 +7,7 @@ public enum Suit {
 
     public enum Color { 
         BLACK, 
-        RED,
+        RED
     }
     private final Color color;
     private String unicode;
