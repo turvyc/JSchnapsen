@@ -47,6 +47,7 @@ public class CardComparator implements Comparator<Card> {
         rankOrder = ranks;
 
         // Populate suit order using the order defined in the Enum
+        suitOrder = new ArrayList<Suit>();
         for (Suit s : Suit.values())
             suitOrder.add(s);
 

@@ -60,6 +60,7 @@ public class Game extends Observable {
         comparator = new CardComparator(new ArrayList<Rank>(Arrays.asList(RANKS)));
 
         // Assign point values to the cards
+        rankValues = new EnumMap<Rank, Integer>(Rank.class);
         rankValues.put(Rank.JACK, JACK_VALUE);
         rankValues.put(Rank.QUEEN, QUEEN_VALUE);
         rankValues.put(Rank.KING, KING_VALUE);
