@@ -8,7 +8,7 @@ public abstract class Player {
     protected int gamePoints;
     protected int handPoints;
 
-    protected Player() {
+    public Player() {
         hand = new Hand();
         gamePoints = 0;
         handPoints = 0;
