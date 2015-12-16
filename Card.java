@@ -1,8 +1,3 @@
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
-
 /**
  * Represents a single playing card.
  */
@@ -13,11 +8,6 @@ public class Card {
 
     private boolean visible;
 
-    private String IMG_DIR = "img/";
-    private String IMG_FILETYPE = ".png";
-    private String IMG_SEPERATOR = "_";
-    private String BACK_FILENAME = "BACK";
-
     /**
      * Creates a new card.
      * @param r the rank of the card
@@ -27,7 +17,6 @@ public class Card {
         rank = r;
         suit = s;
         visible = false;
-
     }
 
     /**
@@ -77,32 +66,6 @@ public class Card {
      */
     public void setVisible(boolean b) {
         visible = b;
-    }
-
-    /**
-     * Returns the graphical image of the card.
-     * @return the image
-     */
-    public BufferedImage getImage() {
-        // Generate the filename
-        String filename;
-        if (visible) {
-            filename = IMG_DIR + rank.name() +
-                IMG_SEPERATOR + suit.name() + IMG_FILETYPE;
-        }
-        else
-            filename = IMG_DIR + BACK_FILENAME + IMG_FILETYPE;
-
-        // Create the image
-        BufferedImage img = null;
-        try {
-            img = ImageIO.read(new File(filename));
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-            System.exit(1);
-        }
-        return img;
     }
 
     @Override
