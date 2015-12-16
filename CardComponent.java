@@ -13,8 +13,8 @@ public class CardComponent extends JComponent {
     Card card;
 
     // The actual card image dimensions (in /img folder)
-    private final int CARD_WIDTH = 726;
-    private final int CARD_HEIGHT = 500;
+    private final int CARD_WIDTH = 125;
+    private final int CARD_HEIGHT = 182;
 
     // Image file constants
     private String IMG_DIR = "img/";
@@ -25,7 +25,7 @@ public class CardComponent extends JComponent {
     public CardComponent(Card c) {
         card = c;
         card.setVisible(true);
-        setPreferredSize(new Dimension(CARD_HEIGHT, CARD_WIDTH));
+        setPreferredSize(new Dimension(CARD_WIDTH, CARD_HEIGHT));
         setOpaque(true);
     }
 
