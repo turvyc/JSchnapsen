@@ -16,6 +16,7 @@ public class Card {
     private String IMG_DIR = "img/";
     private String IMG_FILETYPE = ".png";
     private String IMG_SEPERATOR = "_";
+    private String BACK_FILENAME = "BACK";
 
     /**
      * Creates a new card.
@@ -83,9 +84,16 @@ public class Card {
      * @return the image
      */
     public BufferedImage getImage() {
-        String filename = IMG_DIR + rank.name() +
-            IMG_SEPERATOR + suit.name() + IMG_FILETYPE;
-        System.out.println(filename);
+        // Generate the filename
+        String filename;
+        if (visible) {
+            filename = IMG_DIR + rank.name() +
+                IMG_SEPERATOR + suit.name() + IMG_FILETYPE;
+        }
+        else
+            filename = IMG_DIR + BACK_FILENAME + IMG_FILETYPE;
+
+        // Create the image
         BufferedImage img = null;
         try {
             img = ImageIO.read(new File(filename));
