@@ -13,8 +13,8 @@ public class CardComponent extends JComponent {
     Card card;
 
     // The actual card image dimensions (in /img folder)
-    private final int CARD_WIDTH = 125;
-    private final int CARD_HEIGHT = 182;
+    public static final int CARD_WIDTH = 125;
+    public static final int CARD_HEIGHT = 182;
 
     // Image file constants
     private String IMG_DIR = "img/";
