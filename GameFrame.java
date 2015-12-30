@@ -7,6 +7,9 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Observable;
+import java.util.Observer;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -17,8 +20,9 @@ import javax.swing.JMenuItem;
 /**
  * Creates the main frame of the game, including the menu bar.
  */
-public class GameFrame extends JFrame {
+public class GameFrame extends JFrame implements Observer {
 
+    private Game game;
     private GameController controller;
     private MenuItemListener listener;
 
@@ -26,18 +30,14 @@ public class GameFrame extends JFrame {
     private final int FRAME_HEIGHT = 1000;
     private String FRAME_TITLE = "JSchnapsen";
 
-    private String MENU_ITEM_EXIT = "Exit";
-    private String MENU_ITEM_BLANK = "Blank";
-    private String MENU_ITEM_ABOUT = "About";
+    public static String MENU_ITEM_EXIT = "Exit";
+    public static String MENU_ITEM_BLANK = "Blank";
+    public static String MENU_ITEM_ABOUT = "About";
 
-    class MenuItemListener implements ActionListener {
-        public void actionPerformed(ActionEvent e) {
-            if (e.getActionCommand().equals(MENU_ITEM_EXIT))
-                System.exit(0);
-        }
-    }
+    private MultiCardPane playerHand;
 
-    public GameFrame(GameController c) {
+    public GameFrame(Game g, GameController c) {
+        game = g;
         controller = c;
         listener = new MenuItemListener();
 
@@ -83,9 +83,22 @@ public class GameFrame extends JFrame {
 
     }
 
+    @Override
+    public void update(Observable o, Object arg) {
+        Game g = (Game) o;
+        
+        Hand ph = g.getPlayerHand();
+        for (Card c : ph.getCards()) {
+            CardComponent cc = new CardComponent(c);
+            playerHand.addCard(cc);
+        }
+        playerHand.showCards();
+    }
+
     private JPanel createOpponentPanel() {
         JPanel p = new JPanel();
         p.setBackground(Color.RED);
+        MultiCardPane opponentHand = new MultiCardPane(25, 0);
         return p;
     }
 
@@ -93,12 +106,23 @@ public class GameFrame extends JFrame {
         JPanel p = new JPanel();
         p.setLayout(new BorderLayout());
         p.setBackground(Color.GREEN);
+
+        MultiCardPane deck = new MultiCardPane(2, 2);
+        MultiCardPane discard = new MultiCardPane(2, 2);
+
+        p.add(deck, BorderLayout.WEST);
+        p.add(discard, BorderLayout.EAST);
         return p;
     }
 
     private JPanel createPlayerPanel() {
         JPanel p = new JPanel();
         p.setBackground(Color.BLUE);
+        playerHand = new MultiCardPane(25, 0);
+        p.add(playerHand);
+
+        game.getPlayerHand().addObserver(playerHand);
+        
         return p;
     }
 
