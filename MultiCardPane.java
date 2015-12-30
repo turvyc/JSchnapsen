@@ -20,7 +20,7 @@ public class MultiCardPane extends JLayeredPane implements Observer {
 
     /**
      * Creates a new empty HandPane.
-     * @param h the vertical offset to display successive cards in pixels
+     * @param h the horizontal offset to display successive cards in pixels
      * @param v the vertical offset to display successive cards in pixels
      */
     public MultiCardPane(int h, int v) {
@@ -43,14 +43,6 @@ public class MultiCardPane extends JLayeredPane implements Observer {
                     CardComponent.CARD_HEIGHT);
             add(c, (Integer) i);
         }
-    }
-
-    public void setHOffset(int i) {
-        h_offset = i;
-    }
-
-    public void setVOffset(int i) {
-        v_offset = i;
     }
 
     @Override
