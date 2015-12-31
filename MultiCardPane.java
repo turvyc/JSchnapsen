@@ -54,6 +54,10 @@ public class MultiCardPane extends JLayeredPane implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        System.out.println("HandPane observed something!");
+        Hand hand = (Hand) o;
+        cards = new ArrayList<CardComponent>();
+        for (Card c : hand.getCards())
+            addCard(new CardComponent(c));
+        showCards();
     }
 }

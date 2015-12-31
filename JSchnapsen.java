@@ -4,19 +4,18 @@
 public class JSchnapsen {
 
     public static void main(String[] args) {
+        Player p1 = new HumanPlayer("Colin");
+        Player p2 = new ComputerPlayer("Magali");
 
-        Deck deck = new Deck();
-        CardComparator comparator = new CardComparator();
-        deck.sortBySuit(false);
-        comparator.setTrump(Suit.HEARTS);
-        deck.sort(comparator);
+        Game game = new Game(p1, p2);
+        GameController controller = new GameController(game);
+        GameFrame frame = new GameFrame(game, controller);
 
-        for (int i = 0; i < 52; i++) {
-            Card c = deck.draw();
-            c.setVisible(true);
-            System.out.print(c + " ");
-        }
-        System.out.print("\n");
+        frame.setVisible(true);
+
+        // game.addObserver(frame);
+        game.newGame();
+        // game.play();
 
     }
 }

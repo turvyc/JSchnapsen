@@ -86,12 +86,16 @@ public class Game extends Observable {
         }
 
         // Notify the observer
-        System.out.println(getPlayerHand().countObservers());
         p1.getHand().notifyObservers();
+        p2.getHand().notifyObservers();
     }
 
     public Hand getPlayerHand() {
         return p1.getHand();
+    }
+
+    public Hand getOpponentHand() {
+        return p2.getHand();
     }
 
     public void play() {

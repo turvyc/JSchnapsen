@@ -34,8 +34,6 @@ public class GameFrame extends JFrame implements Observer {
     public static String MENU_ITEM_BLANK = "Blank";
     public static String MENU_ITEM_ABOUT = "About";
 
-    private MultiCardPane playerHand;
-
     public GameFrame(Game g, GameController c) {
         game = g;
         controller = c;
@@ -86,18 +84,15 @@ public class GameFrame extends JFrame implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         Game g = (Game) o;
-        
-        Hand ph = g.getPlayerHand();
-        for (Card c : ph.getCards()) {
-            CardComponent cc = new CardComponent(c);
-            playerHand.addCard(cc);
-        }
-        playerHand.showCards();
     }
 
     private JPanel createOpponentPanel() {
         JPanel p = new JPanel();
         p.setBackground(Color.RED);
+        MultiCardPane opponentHandPane = new MultiCardPane(25, 0);
+        p.add(opponentHandPane);
+
+        game.getOpponentHand().addObserver(opponentHandPane);
         MultiCardPane opponentHand = new MultiCardPane(25, 0);
         return p;
     }
@@ -118,11 +113,9 @@ public class GameFrame extends JFrame implements Observer {
     private JPanel createPlayerPanel() {
         JPanel p = new JPanel();
         p.setBackground(Color.BLUE);
-        playerHand = new MultiCardPane(25, 0);
-        p.add(playerHand);
-
-        game.getPlayerHand().addObserver(playerHand);
-        
+        MultiCardPane playerHandPane = new MultiCardPane(25, 0);
+        p.add(playerHandPane);
+        game.getPlayerHand().addObserver(playerHandPane);
         return p;
     }
 

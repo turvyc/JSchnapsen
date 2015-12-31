@@ -1,18 +1,18 @@
 /**
- * Represents a human player.
+ * Represents an AI player.
  */
-public class HumanPlayer extends Player {
+public class ComputerPlayer extends Player {
 
     private String name;
 
-    public HumanPlayer(String n) {
+    public ComputerPlayer(String n) {
         super();
         name = n;
     }
 
     @Override
     public void giveCard(Card c) {
-        c.setVisible(true);
+        c.setVisible(false);
         super.giveCard(c);
     }
 }

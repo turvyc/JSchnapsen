@@ -24,7 +24,6 @@ public class CardComponent extends JComponent {
 
     public CardComponent(Card c) {
         card = c;
-        card.setVisible(true);
         setPreferredSize(new Dimension(CARD_WIDTH, CARD_HEIGHT));
         setOpaque(true);
     }

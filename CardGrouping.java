@@ -1,10 +1,11 @@
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Observable;
 
 /**
  * Represents an abstract collection of cards.
  */
-public abstract class CardGrouping {
+public abstract class CardGrouping extends Observable {
 
     protected ArrayList<Card> cards;
 
@@ -16,6 +17,10 @@ public abstract class CardGrouping {
     public CardGrouping() {
         cards = new ArrayList<Card>();
         sortBySuit = true;
+    }
+
+    public ArrayList<Card> getCards() {
+        return cards;
     }
 
     /**
@@ -31,6 +36,7 @@ public abstract class CardGrouping {
      * @param c the card to add
      */
     protected void add(Card c) {
+        setChanged();
         cards.add(c);
     }
 
@@ -42,6 +48,7 @@ public abstract class CardGrouping {
     protected Card remove(Card c) {
         assert cards.contains(c);
         int i = cards.indexOf(c);
+        setChanged();
         return remove(i);
     }
 
@@ -54,6 +61,7 @@ public abstract class CardGrouping {
         assert cards.size() >= i + 1;
         Card r = cards.get(i);
         cards.remove(i);
+        setChanged();
         return r;
     }
 
@@ -72,6 +80,7 @@ public abstract class CardGrouping {
     protected void setVisible(boolean b) {
         for (Card c : cards)
             c.setVisible(b);
+        setChanged();
     }
 
     /**
@@ -80,5 +89,6 @@ public abstract class CardGrouping {
     protected void sort(CardComparator comparator) {
         comparator.sortBySuit(this.sortBySuit);
         Collections.sort(cards, comparator);
+        setChanged();
     }
 }
