@@ -13,11 +13,14 @@ public class Game extends Observable {
     // The two players, may be human or AI
     private Player p1, p2;
 
-    // The current dealer
+    // The current dealer, used to determine who plays the first trick
     private Player dealer;
 
     // The deck, which becomes the stock, or "talon"
     private Deck deck;
+
+    // The number of cards dealt in an initial hand
+    private final int HAND_SIZE = 5;
 
     // The ranks used in Schnapsen, used to create a "stripped" deck
     private final Rank[] RANKS = { Rank.JACK, Rank.QUEEN, Rank.KING,
@@ -53,9 +56,6 @@ public class Game extends Observable {
         this.p1 = p1;
         this.p2 = p2;
 
-        // Create the deck and CardGrouping objects
-        resetDeck();
-
         // Create the comparator for the stripped deck
         comparator = new CardComparator(new ArrayList<Rank>(Arrays.asList(RANKS)));
 
@@ -66,20 +66,42 @@ public class Game extends Observable {
         rankValues.put(Rank.KING, KING_VALUE);
         rankValues.put(Rank.TEN, TEN_VALUE);
         rankValues.put(Rank.ACE, ACE_VALUE);
+    }
+
+    /**
+     * Starts a new game.
+     */
+    public void newGame() {
+        // Create the deck and CardGrouping objects
+        resetDeck();
 
         // Randomly determine the first dealer
         Random r = new Random();
         dealer = (r.nextInt() % 2 == 0) ? p1 : p2;
 
+        // Deal the hand
+        for (int i = 0; i < HAND_SIZE; i++) {
+            p1.giveCard(deck.draw());
+            p2.giveCard(deck.draw());
+        }
+
         // Notify the observer
-        setChanged();
-        notifyObservers();
+        System.out.println(getPlayerHand().countObservers());
+        p1.getHand().notifyObservers();
+    }
+
+    public Hand getPlayerHand() {
+        return p1.getHand();
+    }
+
+    public void play() {
+        state = State.OPEN;
     }
 
     /**
      * Prepares the next hand in a game.
      */
-    public void prepareNextHand() {
+    private void prepareNextHand() {
         state = State.PREGAME;
 
         resetDeck();

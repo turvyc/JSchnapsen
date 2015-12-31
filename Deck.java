@@ -44,16 +44,4 @@ public class Deck extends CardGrouping {
     public Card draw() {
         return super.remove(0);
     }
-
-    /**
-     * Removes and returns a hand.
-     * @param size the number of cards to deal
-     * @return a Hand of cards
-     */
-    public Hand deal(int size) {
-        Hand h = new Hand();
-        for (int i = 0; i < size; i++)
-            h.add(draw());
-        return h;
-    }
 }

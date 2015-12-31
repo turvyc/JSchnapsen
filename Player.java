@@ -14,6 +14,18 @@ public abstract class Player {
         handPoints = 0;
     }
 
+    /**
+     * Adds a single card to the player's hand.
+     * @param c the card to be added to the player's hand
+     */
+    public void giveCard(Card c) {
+        hand.add(c);
+    }
+
+    public Hand getHand() {
+        return hand;
+    }
+
     public void addGamePoints(int n) {
         gamePoints += n;
     }
