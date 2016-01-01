@@ -66,14 +66,16 @@ public class Game extends Observable {
         rankValues.put(Rank.KING, KING_VALUE);
         rankValues.put(Rank.TEN, TEN_VALUE);
         rankValues.put(Rank.ACE, ACE_VALUE);
+
+        // Create the deck and CardGrouping objects
+        resetDeck();
     }
 
     /**
      * Starts a new game.
      */
     public void newGame() {
-        // Create the deck and CardGrouping objects
-        resetDeck();
+        state = State.PREGAME;
 
         // Randomly determine the first dealer
         Random r = new Random();
@@ -85,9 +87,19 @@ public class Game extends Observable {
             p2.giveCard(deck.draw());
         }
 
-        // Notify the observer
+        p1.getHand().sort(comparator);
+
+        notifyObservers();
+    }
+
+    @Override
+    public void notifyObservers() {
         p1.getHand().notifyObservers();
         p2.getHand().notifyObservers();
+        deck.notifyObservers();
+        discard.notifyObservers();
+        trick.notifyObservers();
+        super.notifyObservers();
     }
 
     public Hand getPlayerHand() {
@@ -98,8 +110,20 @@ public class Game extends Observable {
         return p2.getHand();
     }
 
+    public Deck getDeck() {
+        return deck;
+    }
+
+    public DiscardPile getDiscardPile() {
+        return discard;
+    }
+
     public void play() {
         state = State.OPEN;
+    }
+
+    public State getState() {
+        return state;
     }
 
     /**

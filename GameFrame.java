@@ -24,7 +24,7 @@ public class GameFrame extends JFrame implements Observer {
 
     private Game game;
     private GameController controller;
-    private MenuItemListener listener;
+    private MenuItemListener menuListener;
 
     private final int FRAME_WIDTH = 1000;
     private final int FRAME_HEIGHT = 1000;
@@ -37,7 +37,7 @@ public class GameFrame extends JFrame implements Observer {
     public GameFrame(Game g, GameController c) {
         game = g;
         controller = c;
-        listener = new MenuItemListener();
+        menuListener = new MenuItemListener();
 
         // Set frame properties
         setSize(FRAME_WIDTH, FRAME_HEIGHT);
@@ -102,11 +102,15 @@ public class GameFrame extends JFrame implements Observer {
         p.setLayout(new BorderLayout());
         p.setBackground(Color.GREEN);
 
-        MultiCardPane deck = new MultiCardPane(2, 2);
-        MultiCardPane discard = new MultiCardPane(2, 2);
+        MultiCardPane deckPane = new MultiCardPane(2, 2);
+        MultiCardPane discardPane = new MultiCardPane(2, 2);
 
-        p.add(deck, BorderLayout.WEST);
-        p.add(discard, BorderLayout.EAST);
+        p.add(deckPane, BorderLayout.WEST);
+        p.add(discardPane, BorderLayout.EAST);
+
+        game.getDeck().addObserver(deckPane);
+        game.getDiscardPile().addObserver(discardPane);
+
         return p;
     }
 
@@ -135,7 +139,7 @@ public class GameFrame extends JFrame implements Observer {
         menu.add(exit);
 
         // Attach them to the controller
-        exit.addActionListener(listener);
+        exit.addActionListener(menuListener);
 
         return menu;
     }
@@ -150,7 +154,7 @@ public class GameFrame extends JFrame implements Observer {
         menu.add(blank);
 
         // Attach them to the controller
-        blank.addActionListener(listener);
+        blank.addActionListener(menuListener);
 
         return menu;
     }
@@ -165,7 +169,7 @@ public class GameFrame extends JFrame implements Observer {
         menu.add(about);
 
         // Attach them to the controller
-        about.addActionListener(listener);
+        about.addActionListener(menuListener);
 
         return menu;
     }
