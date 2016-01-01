@@ -67,7 +67,7 @@ public class CardComparator implements Comparator<Card> {
         Suit aSuit = a.getSuit();
         Suit bSuit = b.getSuit();
 
-        assert (aRank != bRank && aSuit != bSuit);
+        assert (aRank != bRank || aSuit != bSuit);
 
         // Handle trump cards
         if (aSuit == trump) {
