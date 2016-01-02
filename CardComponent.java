@@ -32,6 +32,11 @@ public class CardComponent extends JComponent {
         setOpaque(true);
     }
 
+    @Override
+    public String toString() {
+        return card.toString();
+    }
+
     /**
      * Returns the graphical image of the card.
      * @return the image

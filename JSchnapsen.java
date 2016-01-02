@@ -13,7 +13,7 @@ public class JSchnapsen {
 
         frame.setVisible(true);
 
-        // game.addObserver(frame);
+        game.addObserver(frame);
         game.newGame();
         // game.play();
 

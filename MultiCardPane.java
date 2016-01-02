@@ -1,4 +1,5 @@
 import java.awt.Dimension;
+import java.awt.event.MouseListener;
 import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.Observable;
@@ -11,7 +12,7 @@ import javax.swing.JLayeredPane;
 public class MultiCardPane extends JLayeredPane implements Observer {
 
     // The cards in this hand
-    ArrayList<Card> cards;
+    ArrayList<CardComponent> cards;
 
     // The horizontal offset in pixels to display the cards
     protected int h_offset;
@@ -25,7 +26,7 @@ public class MultiCardPane extends JLayeredPane implements Observer {
      * @param v the vertical offset to display successive cards in pixels
      */
     public MultiCardPane(int h, int v) {
-        cards = new ArrayList<Card>();
+        cards = new ArrayList<CardComponent>();
         h_offset = h;
         v_offset = v;
     }
@@ -40,14 +41,19 @@ public class MultiCardPane extends JLayeredPane implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         CardGrouping cg = (CardGrouping) o;
-        cards = cg.getCards();
+        GameController gc = (GameController) arg;
+
+        for (Card c : cg.getCards()) {
+            cards.add(new CardComponent(c));
+        }
 
         // Display the card components
         for (int i = 0; i < cards.size(); i++) {
-            CardComponent cc = new CardComponent(cards.get(i));
+            CardComponent cc = cards.get(i);
             cc.setBounds(h_offset * i, v_offset * i, CardComponent.CARD_WIDTH, 
                     CardComponent.CARD_HEIGHT);
             add(cc, (Integer) i);
+            cc.addMouseListener(gc);
         }
     }
 }

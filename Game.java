@@ -94,17 +94,8 @@ public class Game extends Observable {
 
         p1.getHand().sort(comparator);
 
+        setChanged();
         notifyObservers();
-    }
-
-    @Override
-    public void notifyObservers() {
-        p1.getHand().notifyObservers();
-        p2.getHand().notifyObservers();
-        deck.notifyObservers();
-        discard.notifyObservers();
-        trick.notifyObservers();
-        super.notifyObservers();
     }
 
     public Hand getPlayerHand() {
@@ -117,6 +108,10 @@ public class Game extends Observable {
 
     public Deck getDeck() {
         return deck;
+    }
+
+    public Trick getTrick() {
+        return trick;
     }
 
     public DiscardPile getDiscardPile() {

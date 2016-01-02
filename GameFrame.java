@@ -84,6 +84,11 @@ public class GameFrame extends JFrame implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         Game g = (Game) o;
+        g.getOpponentHand().notifyObservers(controller);
+        g.getDeck().notifyObservers(controller);
+        g.getTrick().notifyObservers(controller);
+        g.getDiscardPile().notifyObservers(controller);
+        g.getPlayerHand().notifyObservers(controller);
     }
 
     private JPanel createOpponentPanel() {
