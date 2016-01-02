@@ -87,6 +87,11 @@ public class Game extends Observable {
             p2.giveCard(deck.draw());
         }
 
+        // Set the trump card
+        Card trump = deck.draw();
+        comparator.setTrump(trump.getSuit());
+        deck.addTrump(trump);
+
         p1.getHand().sort(comparator);
 
         notifyObservers();

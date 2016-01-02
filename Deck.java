@@ -7,6 +7,8 @@ import java.util.Random;
  */
 public class Deck extends CardGrouping {
 
+    private Card trump;
+
     /**
      * Creates a standard 52-card deck.
      */
@@ -42,6 +44,28 @@ public class Deck extends CardGrouping {
      * @return the top card of the deck
      */
     public Card draw() {
+        setChanged();
         return super.remove(0);
+    }
+
+    /**
+     * This method is probably only needed for Schnapsen, because the trump
+     * card is displayed as part of the deck (at a 90-degree angle).
+     * @param c the trump card
+     */
+    public void addTrump(Card c) {
+        trump = c;
+        trump.setVisible(true);
+        setChanged();
+    }
+
+    /**
+     * This method is probably only needed for Schnapsen, because the trump
+     * card is displayed as part of the deck (at a 90-degree angle).
+     * @return the trump card
+     */
+    public Card getTrump() {
+        setChanged();
+        return trump;
     }
 }

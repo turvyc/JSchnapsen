@@ -1,6 +1,7 @@
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -22,9 +23,12 @@ public class CardComponent extends JComponent {
     private String IMG_SEPERATOR = "_";
     private String BACK_FILENAME = "BACK";
 
+    // Whether to rotate the image 90 degrees, used for the trump card
+    private boolean rotate;
+
     public CardComponent(Card c) {
         card = c;
-        setPreferredSize(new Dimension(CARD_WIDTH, CARD_HEIGHT));
+        rotate = false;
         setOpaque(true);
     }
 
@@ -54,9 +58,28 @@ public class CardComponent extends JComponent {
         return img;
     }
 
+    public void setRotate(boolean b) {
+        rotate = true;
+    }
+
+    @Override 
+    public Dimension getPreferredSize() {
+        return new Dimension(CARD_WIDTH, CARD_HEIGHT);
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         Graphics2D g2 = (Graphics2D) g;
-        g2.drawImage(getImage(), 0, 0, null);
+        BufferedImage image = getImage();
+        
+        if (rotate) {
+            AffineTransform at = new AffineTransform();
+            at.translate(getWidth() / 2, getHeight() / 2);
+            at.rotate(Math.PI / 2);
+            at.translate(-image.getWidth() / 2, -image.getHeight() / 2);
+            g2.drawImage(image, at, null);
+        }
+        else
+           g2.drawImage(image, 0, 0, null);
     }
 }

@@ -91,9 +91,7 @@ public class GameFrame extends JFrame implements Observer {
         p.setBackground(Color.RED);
         MultiCardPane opponentHandPane = new MultiCardPane(25, 0);
         p.add(opponentHandPane);
-
         game.getOpponentHand().addObserver(opponentHandPane);
-        MultiCardPane opponentHand = new MultiCardPane(25, 0);
         return p;
     }
 
@@ -102,7 +100,7 @@ public class GameFrame extends JFrame implements Observer {
         p.setLayout(new BorderLayout());
         p.setBackground(Color.GREEN);
 
-        MultiCardPane deckPane = new MultiCardPane(2, 2);
+        DeckPane deckPane = new DeckPane();
         MultiCardPane discardPane = new MultiCardPane(2, 2);
 
         p.add(deckPane, BorderLayout.WEST);

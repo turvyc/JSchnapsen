@@ -1,4 +1,5 @@
 import java.awt.Dimension;
+import java.awt.geom.AffineTransform;
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
@@ -10,13 +11,13 @@ import javax.swing.JLayeredPane;
 public class MultiCardPane extends JLayeredPane implements Observer {
 
     // The cards in this hand
-    ArrayList<CardComponent> cards;
+    ArrayList<Card> cards;
 
     // The horizontal offset in pixels to display the cards
-    private int h_offset;
+    protected int h_offset;
 
     // The vertical offset distance
-    private int v_offset;
+    protected int v_offset;
 
     /**
      * Creates a new empty HandPane.
@@ -24,25 +25,9 @@ public class MultiCardPane extends JLayeredPane implements Observer {
      * @param v the vertical offset to display successive cards in pixels
      */
     public MultiCardPane(int h, int v) {
-        cards = new ArrayList<CardComponent>();
+        cards = new ArrayList<Card>();
         h_offset = h;
         v_offset = v;
-    }
-
-    /**
-     * Adds a card to the hand pane and redraws it.
-     */
-    public void addCard(CardComponent c) {
-        cards.add(c);
-    }
-
-    public void showCards() {
-        for (int i = 0; i < cards.size(); i++) {
-            CardComponent c = cards.get(i);
-            c.setBounds(h_offset * i, v_offset * i, CardComponent.CARD_WIDTH, 
-                    CardComponent.CARD_HEIGHT);
-            add(c, (Integer) i);
-        }
     }
 
     @Override
@@ -55,9 +40,14 @@ public class MultiCardPane extends JLayeredPane implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         CardGrouping cg = (CardGrouping) o;
-        cards = new ArrayList<CardComponent>();
-        for (Card c : cg.getCards())
-            addCard(new CardComponent(c));
-        showCards();
+        cards = cg.getCards();
+
+        // Display the card components
+        for (int i = 0; i < cards.size(); i++) {
+            CardComponent cc = new CardComponent(cards.get(i));
+            cc.setBounds(h_offset * i, v_offset * i, CardComponent.CARD_WIDTH, 
+                    CardComponent.CARD_HEIGHT);
+            add(cc, (Integer) i);
+        }
     }
 }
