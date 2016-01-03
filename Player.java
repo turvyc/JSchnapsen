@@ -3,15 +3,22 @@
  */
 public abstract class Player {
 
+    protected String name;
+
     protected Hand hand;
     
     protected int gamePoints;
     protected int handPoints;
 
-    public Player() {
+    public Player(String n) {
+        name = n;
         hand = new Hand();
         gamePoints = 0;
         handPoints = 0;
+    }
+
+    public String getName() {
+        return name;
     }
 
     /**

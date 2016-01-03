@@ -3,10 +3,8 @@
  */
 public class ComputerPlayer extends Player {
 
-    private String name;
-
     public ComputerPlayer(String n) {
-        super();
+        super(n);
         name = n;
     }
 

@@ -3,16 +3,14 @@
  */
 public class HumanPlayer extends Player {
 
-    private String name;
-
     public HumanPlayer(String n) {
-        super();
-        name = n;
+        super(n);
+        hand.sortBySuit(false);
     }
 
     @Override
     public void giveCard(Card c) {
-        c.setVisible(true);
         super.giveCard(c);
+        c.setVisible(true);
     }
 }
