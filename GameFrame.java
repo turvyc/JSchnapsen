@@ -24,7 +24,10 @@ public class GameFrame extends JFrame implements Observer {
 
     private Game game;
     private GameController controller;
+
     private MenuItemListener menuListener;
+    private ButtonListener buttonListener;
+    private CardListener cardListener;
 
     private final int FRAME_WIDTH = 1000;
     private final int FRAME_HEIGHT = 1000;
@@ -34,10 +37,17 @@ public class GameFrame extends JFrame implements Observer {
     public static String MENU_ITEM_BLANK = "Blank";
     public static String MENU_ITEM_ABOUT = "About";
 
+    public static String CALL_SCHNAPSEN = "Call Schnapsen!";
+    public static String CLOSE_DECK = "Close Deck";
+    public static String SHOW_MARRIAGE = "Show Marriage";
+
     public GameFrame(Game g, GameController c) {
         game = g;
         controller = c;
-        menuListener = new MenuItemListener();
+
+        menuListener = new MenuItemListener(controller);
+        buttonListener = new ButtonListener(controller);
+        cardListener = new CardListener(controller);
 
         // Set frame properties
         setSize(FRAME_WIDTH, FRAME_HEIGHT);
@@ -58,6 +68,7 @@ public class GameFrame extends JFrame implements Observer {
         JPanel centerPanel = createCenterPanel();
         JPanel playerPanel = createPlayerPanel();
         JPanel buttonPanel = createButtonPanel();
+        JPanel statusPanel = createStatusPanel();
 
         // Add the panels to the frame, according to the constraints
         constraints.fill = GridBagConstraints.BOTH;
@@ -76,19 +87,22 @@ public class GameFrame extends JFrame implements Observer {
         add(playerPanel, constraints);
 
         constraints.gridy = 3;
-        constraints.weighty = 0.1;
+        constraints.weighty = 0.3;
         add(buttonPanel, constraints);
 
+        constraints.gridy = 4;
+        constraints.weighty = 0.1;
+        add(statusPanel, constraints);
     }
 
     @Override
     public void update(Observable o, Object arg) {
         Game g = (Game) o;
-        g.getOpponentHand().notifyObservers(controller);
-        g.getDeck().notifyObservers(controller);
-        g.getTrick().notifyObservers(controller);
-        g.getDiscardPile().notifyObservers(controller);
-        g.getPlayerHand().notifyObservers(controller);
+        g.getOpponentHand().notifyObservers(cardListener);
+        g.getDeck().notifyObservers(cardListener);
+        g.getTrick().notifyObservers(cardListener);
+        g.getDiscardPile().notifyObservers(cardListener);
+        g.getPlayerHand().notifyObservers(cardListener);
     }
 
     private JPanel createOpponentPanel() {
@@ -128,7 +142,25 @@ public class GameFrame extends JFrame implements Observer {
 
     private JPanel createButtonPanel() {
         JPanel p = new JPanel();
+        JButton callButton = new JButton(CALL_SCHNAPSEN);
+        JButton closeButton = new JButton(CLOSE_DECK);
+        JButton marriageButton = new JButton(SHOW_MARRIAGE);
+
+        callButton.addActionListener(buttonListener);
+        closeButton.addActionListener(buttonListener);
+        marriageButton.addActionListener(buttonListener);
+
+        p.add(callButton);
+        p.add(closeButton);
+        p.add(marriageButton);
+
         p.setBackground(Color.YELLOW);
+        return p;
+    }
+
+    private JPanel createStatusPanel() {
+        JPanel p = new JPanel();
+        p.setBackground(Color.PINK);
         return p;
     }
 

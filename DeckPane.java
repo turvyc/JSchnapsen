@@ -37,7 +37,7 @@ public class DeckPane extends MultiCardPane {
     @Override
     public void update(Observable o, Object arg) {
         Deck deck = (Deck) o;
-        GameController gc = (GameController) arg;
+        CardListener listener = (CardListener) arg;
 
         for (Card c : deck.getCards()) {
             cards.add(new CardComponent(c));
@@ -50,7 +50,7 @@ public class DeckPane extends MultiCardPane {
             cc.setBounds(h_offset * i, v_offset * i, CardComponent.CARD_WIDTH, 
                     CardComponent.CARD_HEIGHT);
             add(cc, (Integer) i);
-            cc.addMouseListener(gc);
+            cc.addMouseListener(listener);
         }
 
         // Handle the 90-degree trump card under the deck
@@ -59,6 +59,6 @@ public class DeckPane extends MultiCardPane {
         trump.setRotate(true);
         trump.setBounds(0, trump_offset, CardComponent.CARD_HEIGHT, CardComponent.CARD_WIDTH);
         add(trump, (Integer) i);
-        trump.addMouseListener(gc);
+        trump.addMouseListener(listener);
     }
 }

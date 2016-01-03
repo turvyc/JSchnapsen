@@ -41,7 +41,7 @@ public class MultiCardPane extends JLayeredPane implements Observer {
     @Override
     public void update(Observable o, Object arg) {
         CardGrouping cg = (CardGrouping) o;
-        GameController gc = (GameController) arg;
+        CardListener listener = (CardListener) arg;
 
         for (Card c : cg.getCards()) {
             cards.add(new CardComponent(c));
@@ -53,7 +53,7 @@ public class MultiCardPane extends JLayeredPane implements Observer {
             cc.setBounds(h_offset * i, v_offset * i, CardComponent.CARD_WIDTH, 
                     CardComponent.CARD_HEIGHT);
             add(cc, (Integer) i);
-            cc.addMouseListener(gc);
+            cc.addMouseListener(listener);
         }
     }
 }
