@@ -26,9 +26,16 @@ public class CardComponent extends JComponent {
     // Whether to rotate the image 90 degrees, used for the trump card
     private boolean rotate;
 
+    // If the card is selected, it is displayed higher than the others
+    private boolean selected;
+
+    // The distance a selected card is offset
+    private final int SELECTED_OFFSET = -10;
+
     public CardComponent(Card c) {
         card = c;
         rotate = false;
+        selected = false;
         setOpaque(true);
     }
 
@@ -64,7 +71,11 @@ public class CardComponent extends JComponent {
     }
 
     public void setRotate(boolean b) {
-        rotate = true;
+        rotate = b;
+    }
+
+    public void setSelected(boolean b) {
+        selected = b;
     }
 
     @Override 
@@ -74,16 +85,25 @@ public class CardComponent extends JComponent {
 
     @Override
     protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        getParent().repaint();
         Graphics2D g2 = (Graphics2D) g;
         BufferedImage image = getImage();
         
+        AffineTransform at = new AffineTransform();
+
         if (rotate) {
-            AffineTransform at = new AffineTransform();
             at.translate(getWidth() / 2, getHeight() / 2);
             at.rotate(Math.PI / 2);
             at.translate(-image.getWidth() / 2, -image.getHeight() / 2);
             g2.drawImage(image, at, null);
         }
+
+        else if (selected) {
+            at.translate(0, SELECTED_OFFSET);
+            g2.drawImage(image, at, null);
+        }
+
         else
            g2.drawImage(image, 0, 0, null);
     }

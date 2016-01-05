@@ -27,7 +27,13 @@ public class GameFrame extends JFrame implements Observer {
 
     private MenuItemListener menuListener;
     private ButtonListener buttonListener;
-    private CardListener cardListener;
+    private HandListener handListener;
+    private DeckListener deckListener;
+
+    private DeckPane deckPane;
+    private MultiCardPane playerHandPane;
+    private MultiCardPane opponentHandPane;
+    private MultiCardPane discardPane;
 
     private final int FRAME_WIDTH = 1000;
     private final int FRAME_HEIGHT = 1000;
@@ -47,7 +53,8 @@ public class GameFrame extends JFrame implements Observer {
 
         menuListener = new MenuItemListener(controller);
         buttonListener = new ButtonListener(controller);
-        cardListener = new CardListener(controller);
+        handListener = new HandListener(controller);
+        deckListener = new DeckListener(controller);
 
         // Set frame properties
         setSize(FRAME_WIDTH, FRAME_HEIGHT);
@@ -97,20 +104,24 @@ public class GameFrame extends JFrame implements Observer {
 
     @Override
     public void update(Observable o, Object arg) {
-        Game g = (Game) o;
-        g.getOpponentHand().notifyObservers(cardListener);
-        g.getDeck().notifyObservers(cardListener);
-        g.getTrick().notifyObservers(cardListener);
-        g.getDiscardPile().notifyObservers(cardListener);
-        g.getPlayerHand().notifyObservers(cardListener);
+        game.getDeck().addObserver(deckPane);
+        game.getOpponentHand().addObserver(opponentHandPane);
+        game.getDiscardPile().addObserver(discardPane);
+        game.getPlayerHand().addObserver(playerHandPane);
+        
+        game.getOpponentHand().notifyObservers();
+        game.getDeck().notifyObservers(deckListener);
+        game.getTrick().notifyObservers();
+        game.getDiscardPile().notifyObservers();
+        game.getPlayerHand().notifyObservers(handListener);
     }
 
     private JPanel createOpponentPanel() {
         JPanel p = new JPanel();
         p.setBackground(Color.RED);
-        MultiCardPane opponentHandPane = new MultiCardPane(25, 0);
+        opponentHandPane = new MultiCardPane(25, 0);
+        opponentHandPane.addListener(false);
         p.add(opponentHandPane);
-        game.getOpponentHand().addObserver(opponentHandPane);
         return p;
     }
 
@@ -119,14 +130,12 @@ public class GameFrame extends JFrame implements Observer {
         p.setLayout(new BorderLayout());
         p.setBackground(Color.GREEN);
 
-        DeckPane deckPane = new DeckPane();
-        MultiCardPane discardPane = new MultiCardPane(2, 2);
+        deckPane = new DeckPane();
+        discardPane = new MultiCardPane(2, 2);
 
         p.add(deckPane, BorderLayout.WEST);
         p.add(discardPane, BorderLayout.EAST);
 
-        game.getDeck().addObserver(deckPane);
-        game.getDiscardPile().addObserver(discardPane);
 
         return p;
     }
@@ -134,9 +143,9 @@ public class GameFrame extends JFrame implements Observer {
     private JPanel createPlayerPanel() {
         JPanel p = new JPanel();
         p.setBackground(Color.BLUE);
-        MultiCardPane playerHandPane = new MultiCardPane(25, 0);
+        playerHandPane = new MultiCardPane(25, 0);
+        playerHandPane.addListener(true);
         p.add(playerHandPane);
-        game.getPlayerHand().addObserver(playerHandPane);
         return p;
     }
 
@@ -145,6 +154,7 @@ public class GameFrame extends JFrame implements Observer {
         JButton callButton = new JButton(CALL_SCHNAPSEN);
         JButton closeButton = new JButton(CLOSE_DECK);
         JButton marriageButton = new JButton(SHOW_MARRIAGE);
+        marriageButton.setEnabled(false); // Starts disabled
 
         callButton.addActionListener(buttonListener);
         closeButton.addActionListener(buttonListener);
